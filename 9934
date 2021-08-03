@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int main()
+{
+	int arr[1024] = {0};
+	int H, cnt;
+	int parr[11][1024] = {0};
+
+	int N;
+	int num;
+	scanf("%d", &H);
+
+	num =(int)pow(2, H);
+	cnt = num - 1;
+
+	for (int i = 0; i < cnt; i++)
+	{
+		scanf("%d", &N);
+		arr[i] = N;
+	}
+	int level = H;
+
+	int temp[1024] = {0};
+	while (H > 0)
+	{
+		for (int j = 0; j < pow(2, H) - 1; j++)
+		{
+			if (j % 2 == 0)
+				parr[H][j] = arr[j];
+			else
+				temp[j / 2] = arr[j];
+		}
+		for (int k = 0; k < cnt / 2; k++)
+		{
+			arr[k] = temp[k];
+		}
+		H--;
+	}
+	H = level;
+	for (int i = 1; i <= H; i++)
+	{
+		for (int j = 0; j < pow(2, H)-1; j=j+2)
+		{
+			if (parr[i][j] == 0)
+				break;
+			printf("%d ", parr[i][j]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
